@@ -1,0 +1,33 @@
+0.  Pneumonoultramicroscopicsilicovolcanoconiosis is a super long word that was probably invented because saying "lung disease" was too easy for erudite doctors.
+    
+1.  getrusage() returns resource usage measures for either of :
+    a. RUSAGE_SELF
+    b. RUSAGE_CHILDREN
+    c. RUSAGE_THREAD
+    
+2.  As per the man page, the variable of type -struct rusage, consists of 16 members.
+
+3.  Passing "before" and "after" by reference ensures that we are not wasting our precious CPU time in inefficient activities. (like unnecessarily 
+    coping entire structures just to read few elements). Passing by reference saves us quite a bit of memory and time (for larger structs) and adds
+    very little complexity to our program.
+
+4.  After the dictionary is loaded and the text file is opened, main starts reading from the file character by character until EOF is reached.
+    The reason main reads character by character is to make sure that the word contains only alphabets and apostrophes (and no numbers). 
+    If even a single numeric character is found, or if the word count gets longer than the maximum allowed length, then main skips through the characters until the word ends. 
+    Main assumes that out text does not contain any special character. So if the character is not an alphabet or a number, then it is assumed that the character is a space 
+    and hence the word is terminated with '\0'.
+    After a word is found, the spellings are checked and then reported. When EOF is reached, the file is closed, the dictionary is unloaded from memory and the stats are displayed. 
+
+
+5.  Relying of fscanf has quite a bit of problems. Some are :
+        a. speller requires that the words to be checked contain only alphabetical characters and apostrophes. However, fscanf would accept other characters. So we
+           would have to check the word character by character again. (so no point in using fscanf).
+        b. We also have to make sure that the letter count is less than the prescribed minimum.
+        c. Most importantly, we would not know the size of the word that might be read by fscanf in advance. So, we would have to allocate a very large array (which has no certainity
+           of being enough either) to store the word.
+    Hence due to above problems, using fgetc becomes much more convinient to use rather than using fscanf.
+
+6.  The parameters for check() and load() are declared as const to ensure that these function does not modify the contents pointed to by the pointer.
+    The check() and load() funtion recieve pointers to the original string as argument. If we modified the contents pointed to by those pointers,
+    then we would be changing the original string. However, speller.c c is designed such that the strings are reused even after it has passed through the function. Hence, they
+    should not be changed thus requiring the use for const keyword.
