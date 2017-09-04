@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Portfolio
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Total</th>
+        <tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4"></td>
+            <td><b>{{ "${:.2f}".format(value) }}</b></td>
+        </tr>
+    </tfoot>
+        
+<tbody>
+    
+{% for i in range(stock_num) %}
+{% if purchases[i]["SUM(no_of_stock)"] != 0 %}
+<tr>
+    <td>{{ stocks[i]["symbol"] }}</td>
+    <td>{{ stocks[i]["name"] }}</td>
+    <td>{{ purchases[i]["SUM(no_of_stock)"] }}</td>
+    <td>${{ stocks[i]["price"] }}</td>
+    <td>${{"{:.2f}".format(purchases[i]["SUM(no_of_stock)"] * stocks[i]["price"]) }}
+</tr>
+{% endif %}
+{% endfor%}
+<tr>
+    <td colspan="4">CASH</td>
+    <td>{{ "${:.2f}".format(cash) }}</td>
+</tr>
+</tbody>
+</table>
+
+<div class="extra">
+    Click <a href="{{ url_for("change_pwd") }}" name="change_pwd" >Here</a>
+    to change your password
+</div>
+
+{% endblock %}

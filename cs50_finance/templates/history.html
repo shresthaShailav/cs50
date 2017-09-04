@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block main %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Shares</th>
+            <th>Price</th>            
+            <th>Transacted on </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in range(total) %}
+        <tr>
+            <td>{{ transactions[i]["stock_symbol"] }}</td>
+            <td>{{ transactions[i]["no_of_stock"] }}</td>
+            <td>{{ transactions[i]["stock_price"] }}</td>
+            <td>{{ transactions[i].purchase_date }} {{ transactions[i].purchase_time }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

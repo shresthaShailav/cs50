@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Quoted
+{% endblock%}
+
+{% block main %}
+{% if stock %}
+<h3>
+<ul style="list-style: none;">
+<li>
+    <h1>{{ stock["name"] }}</h1>
+    ({{ stock["symbol"] }})
+</li>
+<li>Price : ${{ stock["price"] }}</li>
+</ul>
+</h3>
+{% else %}
+Stock information missing
+{% endif %}
+{% endblock %}
