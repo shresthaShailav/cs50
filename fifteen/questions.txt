@@ -1,0 +1,4 @@
+0. The framework allows all the square dimensions between 3x3 and 9x9 inclusive.
+1. The game's board is represented with multi-dimensional array as data structure.
+2. The greet() function is called to greet the player at game start
+3. The functions to be implemented are : init(), draw(), move(), won().
