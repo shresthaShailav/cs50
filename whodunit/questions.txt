@@ -1,0 +1,63 @@
+1.  stdint.h is a C header file which defines integers with specified width. Since the basic integer type varies across systems,
+    integer types with fixed width are defined to avoid variation in width across different systems.
+    
+2.  When a file is expected to be used across different platforms, it is necessary the the underlying bytes (used for representing 
+    information of the file) does not change from system to system.
+    
+    For example, a BMP file mandates that the the first 2 bytes represent the character B and M respectively. However, it is not 
+    assured that the memory used by a character is 1 bytes in all system. So simply declaring data types without specified width might
+    create problems across diferent systems. In order to solve that problem, the data types, uint8_t, uint32_t, int32_t, uint16_t,
+    etc are used to make sure that the data type is of specified width.
+    
+    uint8_t, uint16_t & uint32_t assures that the data type is 8, 16 and 32 bytes long respectively and stores unsigned integers.
+    Similarly, int32_t assures that the data type is 32 byte long and stores positive as well as negative values.
+    Moreover, these data types also shows our intent as a programmer (like what type of data we expect to store), hence making our
+    code much more explicit.
+
+3.  The no of bytes held by BYTE, DWORD, LONG & WORD are
+    BYTE    - 1 Byte
+    DWORD   - 4 Bytes
+    LONG    - 4 Bytes
+    WORD    - 2 Bytes
+    
+4.  The first two bytes of any BMP file must invariably be :
+    B and M          in ASCII
+    0x42 and 0x4D    in Hexadecimal
+    66 and 77        in decimal
+    
+5.  The difference between bfSize and biSize is:
+    bfSize - It stores the size (in bytes) of the entire bitmap file including the file structures at the begining.
+    biSize - It stores the size (in bytes) required by the BITMAPINFOHEADER structure.
+    
+6.  If biHeight is negative, it implies a top_down DIB (Device Independent Bitmap). (i.e. the top row in image is the first row in memory).
+    A negative biHeight also indicates that the biCompression must either be BI_RGB or BI_BITFIELDS, which are uncompressed formats,
+    as top_down DIBs cannot be compressed.
+
+7.  The field "biBitCount" in BITMAPINFOHEADER specifies the BMP's color depth.
+
+8.  fopen might return null if:
+    a. The file does not exist.
+    b. We do not have permission to access the file.
+    c. The system is out of memory.
+    
+9.  fread is a function that reads "size" bytes of data from a file stream "nmeb" times and stores it in the provided pointer.
+    Our code deals with BMP file format. Since BMP formats has only a single BITMAPFILEHEADER and BITMAPINFOHEADER file structure, 
+    we need to read from the file stream only one element. Hence 1 is used.
+    
+    As in case of the RGBTRIPLE structure, we are copying only one pixel at a time. Hence 1 is used.
+
+10. In line 65, copy.c assigns the value of 3 to padding when bi.biWidth is 3.
+
+11. The fseek() function sets the file position indicator for the stream to a new position. It takes three arguments stream, offset
+    and whence.
+    
+    'stream' represents the file of which we intend to change the posion indicator.
+    'offset' represents the number of bytes to seek (shift) from whence.
+    'whence' represents the positon from where we should seek offset no of bytes.
+        Whence can have the following values
+            SEEK_SET -> Start of the file
+            SEEK_CUR -> Curent position of the file
+            SEEK_END -> End of the file
+
+12. SEEK_CUR is a symbolic constant used as an argument in fseek() function which specifies that the offset is relative to the 
+    current position indicator.
